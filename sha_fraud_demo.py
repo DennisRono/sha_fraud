@@ -5,10 +5,12 @@ from datetime import datetime, timedelta
 from sha_fraud_detector import run_fraud_detection, generate_audit_report
 np.random.seed(42)
 random.seed(42)
+
 def random_date(start="2023-01-01", end="2024-12-31"):
     s = datetime.strptime(start, "%Y-%m-%d")
     e = datetime.strptime(end, "%Y-%m-%d")
     return s + timedelta(days=random.randint(0, (e - s).days))
+
 def make_facilities(n=20):
     levels = [2]*5 + [3]*7 + [4]*5 + [5]*2 + [6]*1
     counties = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret",

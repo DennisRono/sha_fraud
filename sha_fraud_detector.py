@@ -1,20 +1,3 @@
-"""
-sha_fraud_detection.py
-======================
-SHA Kenya — Comprehensive Healthcare Fraud Detection Engine
-Version: 3.0.0
-
-Scientific framework: All detections are grounded in:
-  - Biological/physiological hard constraints (what is impossible)
-  - Actuarial / operational norms (what is implausible)
-  - Statistical inference (what is anomalous relative to peer distribution)
-  - Network graph theory (what structural relationships imply collusion)
-  - Clinical epidemiology (what coding patterns deviate from expected disease burden)
-
-Each module is independently runnable and collectively composable.
-Every positive detection produces a structured ActionPlan for investigators.
-"""
-
 from __future__ import annotations
 
 import hashlib
