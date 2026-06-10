@@ -1,8 +1,10 @@
+import os
 import pandas as pd
 import numpy as np
 import random
 from datetime import datetime, timedelta
 from sha_fraud_detector import run_fraud_detection, generate_audit_report
+
 np.random.seed(42)
 random.seed(42)
 
@@ -30,6 +32,7 @@ def make_facilities(n=20):
             "registered_doctors": max(1, (level - 1) * 3 + random.randint(-1, 3)),
         })
     return pd.DataFrame(rows)
+
 def make_members(n=500):
     rows = []
     agents = [f"AGT{i:03d}" for i in range(1, 11)]
@@ -48,6 +51,7 @@ def make_members(n=500):
             "registration_date": random_date("2022-01-01", "2023-06-01"),
         })
     return pd.DataFrame(rows)
+
 PROCEDURE_TYPES = [
     "OUTPATIENT", "OUTPATIENT", "OUTPATIENT",
     "MINOR_SURGERY", "MAJOR_SURGERY",
@@ -55,6 +59,7 @@ PROCEDURE_TYPES = [
     "ICU", "DIALYSIS", "IMMUNIZATION",
     "ANTENATAL", "WELLNESS_VISIT",
 ]
+
 def make_claims(members, facilities, n=2000):
     rows = []
     for i in range(1, n+1):
@@ -188,24 +193,44 @@ def inject_fraud(claims, members, facilities):
 #  RUN THE DEMO
 
 if __name__ == "__main__":
-    print("\nGenerating synthetic SHA dataset...")
+    # Create a timestamped output folder for clean separation
+    output_base = "fraud_demo_results"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_dir = os.path.join(output_base, f"run_{timestamp}")
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"\nOutput folder: {output_dir}\n")
+
+    print("Generating synthetic SHA dataset...")
     facilities = make_facilities(20)
     members    = make_members(500)
     claims     = make_claims(members, facilities, n=2000)
     print("Injecting fraud patterns...")
     claims, members = inject_fraud(claims, members, facilities)
     print(f"Total claims (clean + fraudulent): {len(claims):,}\n")
-    scored_claims, flags_df = run_fraud_detection(claims, members, facilities, verbose=True)
+
+    # Run the enhanced fraud detection engine
+    scored_claims, flags_df, action_plans, entity_profiles = run_fraud_detection(
+        claims, members, facilities, verbose=True
+    )
+
     print("\n  TOP 15 HIGHEST-RISK CLAIMS:")
     print("-" * 65)
     top = scored_claims[scored_claims["risk_tier"] != "CLEAR"].head(15)
     for _, row in top.iterrows():
         print(f"  [{row['risk_tier']:<22}] {row['claim_id']}  FRS={int(row['fraud_risk_score']):<4}  Flags: {row['flags']}")
-    generate_audit_report(scored_claims, flags_df, "sha_audit_report.csv")
+
+    # Generate comprehensive audit reports inside the output folder
+    output_prefix = os.path.join(output_dir, "sha_audit_report")
+    generate_audit_report(
+        scored_claims, flags_df, action_plans, entity_profiles,
+        output_prefix=output_prefix
+    )
+
     print("\n  FLAG TYPE BREAKDOWN:")
     if not flags_df.empty:
         breakdown = flags_df.groupby(["flag_type", "severity"]).size().reset_index(name="count")
         breakdown = breakdown.sort_values("count", ascending=False)
         for _, row in breakdown.iterrows():
             print(f"    {row['flag_type']:<35} [{row['severity']:<6}]  {row['count']:>5} flags")
-    print()
+    print(f"\nAll outputs saved in: {output_dir}")
+    

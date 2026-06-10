@@ -1,0 +1,3 @@
+claim_id,risk_tier,fraud_risk_score,primary_actions,rationale,deadline_days,escalate_to,supporting_flags
+3,ENHANCED_MONITORING,14.0,"['ACTUARIAL_REVIEW', 'BENEFICIARY_CONTACT', 'FREEZE_PAYMENT', 'REQUEST_DOCUMENTS']",FRS = 14 | Tier: ENHANCED_MONITORING | Flags: BIOLOGICAL_IMPOSSIBLE | MISSING_PREREQUISITE | Max severity: CRITICAL | Entities: 101,7,Claims Investigation Department,BIOLOGICAL_IMPOSSIBLE | MISSING_PREREQUISITE
+1,WATCH,4.0,['WATCHLIST_ADD'],FRS = 4 | Tier: WATCH | Flags: MISSING_PREREQUISITE | Max severity: HIGH | Entities: 101,30,Routine Audit Queue,MISSING_PREREQUISITE

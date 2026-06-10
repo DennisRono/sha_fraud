@@ -1,0 +1,3 @@
+facility_id,total_claims,avg_frs,max_frs,total_frs,immediate_audit_count,unique_flag_types,entity_risk_tier
+F01,3,6.0,14.0,18.0,0,BIOLOGICAL_IMPOSSIBLE | MISSING_PREREQUISITE,ENHANCED_MONITORING
+F02,2,0.0,0.0,0.0,0,,CLEAR

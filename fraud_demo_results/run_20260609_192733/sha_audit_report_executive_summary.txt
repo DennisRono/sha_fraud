@@ -1,0 +1,8 @@
+SHA Fraud Detection — Executive Summary
+==================================================
+Total claims analysed     : 2,186
+Total flags raised        : 3,469
+Immediate audit cases     : 369
+Enhanced monitoring cases : 943
+Watch cases               : 187
+Action plans generated    : 1,499

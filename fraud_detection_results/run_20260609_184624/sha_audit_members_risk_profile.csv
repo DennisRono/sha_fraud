@@ -1,0 +1,5 @@
+member_id,total_claims,avg_frs,max_frs,total_frs,immediate_audit_count,unique_flag_types,entity_risk_tier
+101,2,9.0,14.0,18.0,0,BIOLOGICAL_IMPOSSIBLE | MISSING_PREREQUISITE,ENHANCED_MONITORING
+102,1,0.0,0.0,0.0,0,,CLEAR
+103,1,0.0,0.0,0.0,0,,CLEAR
+104,1,0.0,0.0,0.0,0,,CLEAR

@@ -1,0 +1,6 @@
+claim_id,flag_type,severity,weight,detail,module,entity_id,entity_type,evidence_values
+3,BIOLOGICAL_IMPOSSIBLE,CRITICAL,10,Member 101: Only 116 days between deliveries (biological minimum = 270 days / 9 months). Multiple deliveries claimed within one gestational period.,MODULE_1_BIOLOGICAL,101,MEMBER,"{'gap_days': 116, 'minimum_days': 270}"
+1,MISSING_PREREQUISITE,HIGH,4,Member 101: Delivery claim with ZERO prior antenatal (ANC) visits on record. WHO minimum is 4 ANC visits. Suggests fabricated delivery episode.,MODULE_1_BIOLOGICAL,101,MEMBER,{}
+3,MISSING_PREREQUISITE,HIGH,4,Member 101: Delivery claim with ZERO prior antenatal (ANC) visits on record. WHO minimum is 4 ANC visits. Suggests fabricated delivery episode.,MODULE_1_BIOLOGICAL,101,MEMBER,{}
+1,MISSING_PREREQUISITE,HIGH,4,Member 101: Delivery claim with ZERO prior antenatal (ANC) visits on record. WHO minimum is 4 ANC visits. Suggests fabricated delivery episode.,MODULE_1_BIOLOGICAL,101,MEMBER,{}
+3,MISSING_PREREQUISITE,HIGH,4,Member 101: Delivery claim with ZERO prior antenatal (ANC) visits on record. WHO minimum is 4 ANC visits. Suggests fabricated delivery episode.,MODULE_1_BIOLOGICAL,101,MEMBER,{}

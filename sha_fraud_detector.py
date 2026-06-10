@@ -4,7 +4,7 @@ import hashlib
 import warnings
 from collections import defaultdict
 from dataclasses import dataclass, field
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from enum import Enum
 from typing import Any, Optional
 
@@ -2191,6 +2191,15 @@ def generate_audit_report(
 #  QUICK USAGE EXAMPLE  (replace with real DataFrames in production)
 
 if __name__ == "__main__":
+    import os
+    from datetime import datetime
+
+    # 1. Create a timestamped output folder to avoid overwriting previous runs
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_dir = os.path.join("fraud_detection_results", f"run_{timestamp}")
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"Output folder: {output_dir}\n")
+
     # Minimal synthetic test — replace with actual data loading
     claims_data = pd.DataFrame({
         "claim_id":       [1, 2, 3, 4, 5],
@@ -2231,3 +2240,13 @@ if __name__ == "__main__":
     print(scored[scored["risk_tier"] != "CLEAR"][
         ["claim_id", "fraud_risk_score", "risk_tier", "flags"]
     ].to_string(index=False))
+
+    # 3. Save all reports into the timestamped folder
+    generate_audit_report(
+        scored_claims=scored,
+        flags_df=flags,
+        action_plans=plans,
+        entity_profiles=profiles,
+        output_prefix=os.path.join(output_dir, "sha_audit"),  # e.g. "fraud_detection_results/run_20260101_120000/sha_audit"
+    )
+
